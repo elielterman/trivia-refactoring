@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+import sys
+f = open("output2", 'w')
+sys.stdout = f
 class Game:
     def __init__(self):
         self.players = []
@@ -154,12 +156,17 @@ if __name__ == '__main__':
     game.add('Pat')
     game.add('Sue')
 
-    while True:
-        game.roll(randrange(5) + 1)
 
-        if randrange(9) == 7:
+    n = 1
+    while n < 10:
+        game.roll(n)#randrange(5) + 1)
+        print(n)
+        if n == 9:
+        #if randrange(9) == 7:
             not_a_winner = game.wrong_answer()
         else:
             not_a_winner = game.was_correctly_answered()
-
-        if not not_a_winner: break
+        n += 1
+        if not not_a_winner:
+            f.close()
+            break
