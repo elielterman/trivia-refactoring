@@ -54,6 +54,16 @@ class Game:
             self.is_getting_out_of_penalty_box = False
             return False
 
+    def take_a_turn(self, roll):
+        self.places[self.current_player] = self.places[self.current_player] + roll
+        if self.places[self.current_player] > 11:
+            self.places[self.current_player] -= 12
+
+        print(self.players[self.current_player] + \
+                    '\'s new location is ' + \
+                    str(self.places[self.current_player]))
+        print("The category is %s" % self._current_category)
+        self._ask_question()
 
     def roll(self, roll):
         print("%s is the current player" % self.players[self.current_player])
@@ -61,15 +71,7 @@ class Game:
         if self.in_penalty_box[self.current_player] and not self.leave_penalty_box(roll):
             None
         else:
-            self.places[self.current_player] = self.places[self.current_player] + roll
-            if self.places[self.current_player] > 11:
-                self.places[self.current_player] -= 12
-
-            print(self.players[self.current_player] + \
-                        '\'s new location is ' + \
-                        str(self.places[self.current_player]))
-            print("The category is %s" % self._current_category)
-            self._ask_question()
+            self.take_a_turn(roll)
 
     def _ask_question(self):
         if self._current_category == 'Pop': print(self.pop_questions.pop(0))
